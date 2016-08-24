@@ -74,7 +74,7 @@
             <field name="name">session.calendar</field>
             <field name="model">openacademy.session</field>
             <field name="arch" type="xml">
-                <calendar string="Session Calendar" date_start="date_debut"
+                <calendar string="Session Calendrier" date_start="date_debut"
                           date_stop="date_fin"
                           color="instructeur_id">
                     <field name="name"/>
