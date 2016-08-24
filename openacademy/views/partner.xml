@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="action_partner" model="ir.actions.act_window">
+            <field name="name">Partner</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                <!-- Add Text Here -->
+              </p><p>
+                <!-- More details about what a user can do with this object will be OK -->
+              </p>
+            </field>
+        </record>
+
+        <!-- This Menu Item must have a parent and an action -->
+        <menuitem id="menu_partner" name="Partner" parent="menu_openacademy" action="action_partner" sequence="5"/>
+        <!-- Inherit Form View to Modify it -->
+        <record id="form_inherit_partner" model="ir.ui.view">
+            <field name="name">partner.inherit.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='title']" position="after">
+                    <field name="instructor"/>
+                </xpath>
+
+                <page name="sales_purchases" position="after">
+                    <page string="Sessions">
+                        <field name="session_ids"/>
+                    </page>
+                </page>
+
+            </field>
+        </record>
+
+
+    </data>
+</openerp>

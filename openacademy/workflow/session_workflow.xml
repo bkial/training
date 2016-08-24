@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!-- Workflow definition -->
+
+        <record id="session_wkf" model="workflow">
+            <field name="name">Session workflow</field>
+            <field name="osv">openacademy.session</field>
+        </record>
+
+
+        <!-- Action server definition >
+
+        <record id="set_session_to_draft" model="ir.actions.server">
+            <field name="name">Mettre la session en brouillon</field>
+            <field name="model_id" ref="model_openacademy_session"/>
+            <field name="code">records = self.browse(cr,uid,context['active_ids'],context=context)
+                records.action_draft()
+            </field>
+        </record-->
+
+        <!-- Activities definition -->
+
+        <record id="act_draft" model="workflow.activity">
+            <field name="name">draft</field>
+            <field name="wkf_id" ref="session_wkf"/>
+            <field name="flow_start" eval="True"/>
+            <!--field name="action_id" ref="set_session_to_draft"/-->
+        </record>
+
+        <record id="act_confirmed" model="workflow.activity">
+            <field name="name">confirmed</field>
+            <field name="wkf_id" ref="session_wkf"/>
+            <field name="kind">function</field>
+            <field name="action">action_confirmed()</field>
+        </record>
+
+        <record id="act_done" model="workflow.activity">
+            <field name="name">done</field>
+            <field name="wkf_id" ref="session_wkf"/>
+            <field name="kind">function</field>
+            <field name="action">action_done()</field>
+            <field name="flow_stop">True</field>
+        </record>
+
+        <!-- Transitions definition -->
+
+        <record id="session_draft_to_confirmed" model="workflow.transition">
+            <field name="act_from" ref="act_draft"/>
+            <field name="act_to" ref="act_confirmed"/>
+            <field name="signal">signal_confirmed</field>
+        </record>
+
+        <record id="session_confirmed_to_done" model="workflow.transition">
+            <field name="act_from" ref="act_confirmed"/>
+            <field name="act_to" ref="act_done"/>
+            <field name="signal">signal_done</field>
+        </record>
+
+        <!--record id="session_done_to_draft" model="workflow.transition">
+            <field name="act_from" ref="done"/>
+            <field name="act_to" ref="draft"/>
+            <field name="signal">signal_draft</field>
+        </record-->
+
+        <!--Automatic Transitions >
+
+        <record id="session_draft_to_confirmed_auto" model="workflow.transition">
+            <field name="act_from" ref="act_draft"/>
+            <field name="act_to" ref="confirmed"/>
+            <field name="condition">taken_seats &gt; 50</field>
+        </record-->
+
+    </data>
+</openerp>

@@ -1,0 +1,33 @@
+<openerp>
+    <data>
+        <record model = "openacademy.course" id="cours0">
+        <field name="name" >PHP</field>
+        <field name="description" >cours pour apprendre à programmer en PHP</field>
+        </record>
+        <record model = "openacademy.course" id="cours1">
+        <field name="name" >JAVA</field>
+        <field name="description" >cours pour apprendre à programmer en JAVA</field>
+        </record>
+        <!--  -->
+        <!--   <record id="object0" model="testmodulescaf.testmodulescaf"> -->
+        <!--     <field name="name">Object 0</field> -->
+        <!--   </record> -->
+        <!--  -->
+        <!--   <record id="object1" model="testmodulescaf.testmodulescaf"> -->
+        <!--     <field name="name">Object 1</field> -->
+        <!--   </record> -->
+        <!--  -->
+        <!--   <record id="object2" model="testmodulescaf.testmodulescaf"> -->
+        <!--     <field name="name">Object 2</field> -->
+        <!--   </record> -->
+        <!--  -->
+        <!--   <record id="object3" model="testmodulescaf.testmodulescaf"> -->
+        <!--     <field name="name">Object 3</field> -->
+        <!--   </record> -->
+        <!--  -->
+        <!--   <record id="object4" model="testmodulescaf.testmodulescaf"> -->
+        <!--     <field name="name">Object 4</field> -->
+        <!--   </record> -->
+        <!--  -->
+    </data>
+</openerp>

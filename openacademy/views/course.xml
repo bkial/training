@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+
+
+
+        <!--form-->
+        <record id="from_course" model="ir.ui.view">
+            <field name="name">course.form</field>
+            <field name="model">openacademy.course</field>
+            <field name="arch" type="xml">
+                <form string="form_course">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="resp_id"/>
+                            <field name="sessions"/>
+                        </group>
+                            <notebook>
+                                <page string="Notebook">
+                                    <group>
+                                        <field name="description"/>
+                                    </group>
+                                </page>
+                            </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!--tree-->
+        <record id="tree_course" model="ir.ui.view">
+            <field name="name">course.tree</field>
+            <field name="model">openacademy.course</field>
+            <field name="arch" type="xml">
+                <tree string="tree">
+                    <field name="name"/>
+                    <field name="description"/>
+                    <field name="resp_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <!--search-->
+        <record id="course_search_view_opena" model="ir.ui.view">
+            <field name="name">course.search</field>
+            <field name="model">openacademy.course</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="description"/>
+                     <!--filtre -->
+                    <filter name="my_courses" string="Mes Cours" domain="[('resp_id', '=', uid)]"/>
+                    <!--group by-->
+                    <group string="Group By">
+                        <filter name="by_responsible" string="Responsable" context="{'group_by': 'resp_id'}"/>
+                    </group>
+
+                </search>
+            </field>
+        </record>
+
+        <!--actions-->
+        <record id="action_course" model="ir.actions.act_window">
+            <field name="name">course</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">openacademy.course</field>
+            <field name="view_mode">tree,form,search</field>
+            <!--field name="context" eval="{'search_default_my_courses': 1}"/-->
+        </record>
+
+
+        <!--menus-->
+        <menuitem id="menu_root" name="Open Academy" sequence="1"/>
+        <menuitem id="menu_openacademy" name="Open Academy" parent="menu_root" sequence="2"/>
+        <!-- This Menu Item must have a parent and an action -->
+        <menuitem id="menu_course" name="Cours" parent="menu_openacademy" action="action_course" sequence="3"/>
+
+    </data>
+</openerp>

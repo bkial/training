@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!--actions-->
+        <record id="action_session" model="ir.actions.act_window">
+            <field name="name">session</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">openacademy.session</field>
+            <field name="view_mode">tree,form,calendar,gantt,kanban</field>
+        </record>
+
+        <!--menus-->
+        <!-- This Menu Item must have a parent and an action -->
+        <menuitem id="menu_session" name="Sessions" parent="menu_openacademy" action="action_session" sequence="4"/>
+
+
+        <!--form-->
+        <record id="from_session" model="ir.ui.view">
+            <field name="name">session.form</field>
+            <field name="model">openacademy.session</field>
+            <field name="arch" type="xml">
+                <form string="form_session">
+                    <header>
+                            <!--button class="oe_highlight" string="Mettre en brouillon" states="confirmed,done" type="workflow" name="draft"/-->
+                            <button class="oe_highlight" string="Confirmer" states="draft" type="workflow" name="signal_confirmed"/>
+                            <button class="oe_highlight" string="Fermer" states="confirmed" type="workflow" name="signal_done"/>
+                            <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="date_debut"/>
+                            <field name="duree"/>
+                            <field name="nbr_place"/>
+                            <field name="course_id"/>
+                            <field name="instructeur_id"/>
+                            <field name="participants"/>
+                            <field name="place_occup" widget="progressbar"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!--tree-->
+        <record id="tree_session" model="ir.ui.view">
+            <field name="name">session.tree</field>
+            <field name="model">openacademy.session</field>
+            <field name="arch" type="xml">
+                <tree string="Session Tree" colors="blue:duree&lt;5;red:duree&gt;15">
+                    <field name="name"/>
+                    <field name="date_debut"/>
+                    <field name="duree"/>
+                    <field name="nbr_place"/>
+                    <field name="place_occup" widget="progressbar"/>
+                    <field name="state" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <!--search-->
+        <record id="session_search_view" model="ir.ui.view">
+            <field name="name">session.search</field>
+            <field name="model">openacademy.session</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+
+        <!-- calendar -->
+        <record model="ir.ui.view" id="session_calendar_view">
+            <field name="name">session.calendar</field>
+            <field name="model">openacademy.session</field>
+            <field name="arch" type="xml">
+                <calendar string="Session Calendar" date_start="date_debut"
+                          date_stop="date_fin"
+                          color="instructeur_id">
+                    <field name="name"/>
+                </calendar>
+            </field>
+        </record>
+
+        <!-- gantt -->
+        <record id="session_gantt" model="ir.ui.view">
+            <field name="name">session.gantt</field>
+            <field name="model">openacademy.session</field>
+            <field name="arch" type="xml">
+                <gantt string="Sessions" date_start="date_debut" color="instructeur_id" date_delay="duree"/>
+            </field>
+        </record>
+
+        <!-- graph -->
+        <record id="session_graph" model="ir.ui.view">
+            <field name="name">session.graph</field>
+            <field name="model">openacademy.session</field>
+            <field name="arch" type="xml">
+                <graph string="Nombre de places par cours">
+                    <field name="course_id"/>
+                    <field name="nbr_place" type="measure"/>
+                </graph>
+            </field>
+        </record>
+
+        <!-- kanban -->
+        <record model="ir.ui.view" id="session_kanban">
+            <field name="name">Sessions</field>
+            <field name="model">openacademy.session</field>
+            <field name="arch" type="xml">
+                <kanban default_group_by="course_id">
+                    <field name="name"/>
+                    <field name="color"/>
+                    <templates>
+                        <field name="name"/>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_color_#{kanban_getcolor(record.color.raw_value)} oe_kanban_card oe_kanban_global_click">
+                                <div class="oe_dropdown_toggle oe_dropdown_kanban">
+                                    <span class="oe_e">í</span>
+                                    <ul class="oe_dropdown_menu">
+                                        <t t-if="widget.view.is_action_enabled('edit')"><li><a type="edit">Edit...</a></li></t>
+                                        <t t-if="widget.view.is_action_enabled('delete')"><li><a type="delete">Delete</a></li></t>
+                                        <li><ul class="oe_kanban_colorpicker" data-field="color"/></li>
+                                    </ul>
+                                </div>
+                                <div class="oe_kanban_content">
+                                    <div>
+                                        Nom : <b><field name="name"/></b>
+                                        Date de départ : <b><field name="date_debut"/></b>
+                                        Durée : <b><field name="duree"/></b>
+                                    </div>
+                                </div>
+                                <div class="oe_clear"></div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+    </data>
+</openerp>

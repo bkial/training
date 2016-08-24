@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="act_session_graph" model="ir.actions.act_window">
+            <field name="name">Nombre de places par cours</field>
+            <field name="res_model">openacademy.session</field>
+            <field name="view_mode">graph</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="openacademy.session_graph"/>
+        </record>
+
+        <record id="act_session_calendar" model="ir.actions.act_window">
+            <field name="name">Calendrier des sessions</field>
+            <field name="res_model">openacademy.session</field>
+            <field name="view_mode">calendar</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="openacademy.session_calendar_view"/>
+        </record>
+
+        <record id="act_course_list" model="ir.actions.act_window">
+            <field name="name">Liste des cours</field>
+            <field name="res_model">openacademy.course</field>
+            <field name="view_mode">tree</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="openacademy.tree_course"/>
+        </record>
+
+        <record id="board_session_form" model="ir.ui.view">
+            <field name="name">Session dashboard</field>
+            <field name="model">board.board</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <board style="2-1">
+                    <column>
+                        <action string="Nombre de places par cours"
+                                name="%(act_session_graph)d"
+                                height="150"
+                                width="510"/>
+                        <action string="Calendrier des sessions"
+                                name="%(act_session_calendar)d"
+                              />
+                    </column>
+                    <column>
+                        <action string="Liste des cours"
+                                name="%(act_course_list)d"
+                                height="150"
+                                width="510"/>
+                    </column>
+                </board>
+            </field>
+        </record>
+
+        <record id="open_session_board" model="ir.actions.act_window">
+            <field name="name">Tableau de bord session</field>
+            <field name="res_model">board.board</field>
+            <field name="view_mode">form</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="openacademy.board_session_form"/>
+        </record>
+
+        <!-- This Menu Item must have a parent and an action -->
+        <menuitem id="menu_session_board" name="Tableau de bord sessions" parent="base.menu_reporting_dashboard" action="open_session_board"/>
+
+        <menuitem id="menu_session_board1" name="Tableau de bord sessions" parent="openacademy.menu_openacademy" action="open_session_board"/>
+
+    </data>
+</openerp>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="wizard_form_view" model="ir.ui.view">
+            <field name="name">wizard.form.view</field>
+            <field name="model">openacademy.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Inscriptions">
+                    <sheet>
+                        <group>
+                            <field name="session_ids" readonly="1"/>
+                        </group>
+                        <notebook colspan="4">
+                            <page string="Participants">
+                                <field name="attendee_ids"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <footer>
+                        <button string="Ajouter"  type="object" name="action_add" class="oe_highlight"/>
+                        OU
+                        <button string="Annuler"  class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <act_window id="act_session_wizard"
+                    name="Ajouter des participants"
+                    src_model="openacademy.session"
+                    res_model="openacademy.wizard"
+                    view_mode="form"
+                    target="new"
+                    key2="client_action_multi"
+                    />
+
+        <record id="course_wizard_form_view" model="ir.ui.view">
+            <field name="name">course.wizard.form.view</field>
+            <field name="model">openacademy.course.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Affectation d'un responsable">
+                    <sheet>
+                        <group>
+                            <field name="resp_id" readonly="0"/>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button string="Ajouter"  type="object" name="action_add" class="oe_highlight"/>
+                        OU
+                        <button string="Annuler"  class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <act_window id="act_course_wizard"
+                    name="Affecter un responsable"
+                    src_model="openacademy.course"
+                    res_model="openacademy.course.wizard"
+                    view_mode="form"
+                    target="new"
+                    key2="client_action_multi"
+                    />
+
+
+    </data>
+</openerp>
